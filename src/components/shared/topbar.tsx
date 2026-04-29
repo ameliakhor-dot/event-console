@@ -3,13 +3,22 @@
 import { usePathname } from "next/navigation";
 
 const getTitle = (pathname: string): string => {
+  if (pathname === "/") {
+    return "Dashboard";
+  }
   if (pathname === "/events") {
     return "Events";
   }
   if (pathname === "/events/new") {
     return "New Event";
   }
-  return "Dashboard";
+  if (/^\/events\/[^/]+\/edit$/.test(pathname)) {
+    return "Edit Event";
+  }
+  if (/^\/events\/[^/]+$/.test(pathname)) {
+    return "Event Detail";
+  }
+  return "Event Console";
 };
 
 export function Topbar() {
