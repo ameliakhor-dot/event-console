@@ -10,6 +10,7 @@ import type { Event, Guest } from "@/types";
 import { Button } from "@/components/ui/button";
 import { GuestTable } from "@/components/guests/guest-table";
 import { RsvpPasteModal } from "@/components/guests/rsvp-paste-modal";
+import { PageTitle } from "@/components/shared/page-title";
 
 type ParsedGuest = Omit<Guest, "id" | "position">;
 
@@ -95,13 +96,19 @@ export default function GuestsPage() {
 
   return (
     <section className="border border-border bg-surface p-6">
+      <PageTitle title={`${event.name} · Guests — Event Console`} />
       {/* Action bar */}
       <div className="mb-6 flex items-center justify-between gap-4">
-        <h3 className="font-serif text-lg text-ink">
-          {event.guests.length === 0
-            ? "No guests yet."
-            : `${event.guests.length} guest${event.guests.length === 1 ? "" : "s"}`}
-        </h3>
+        <div>
+          <h3 className="font-serif text-lg text-ink">
+            {event.guests.length === 0
+              ? "No guests yet."
+              : `${event.guests.length} guest${event.guests.length === 1 ? "" : "s"}`}
+          </h3>
+          {event.guests.length === 0 && (
+            <p className="text-sm text-graphite">Paste your RSVPs or add someone manually.</p>
+          )}
+        </div>
         <div className="flex items-center gap-2">
           <Button
             variant="outline"

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { TabProgressBar } from "@/components/shared/tab-progress-bar";
 import type { Guest } from "@/types";
 
 type ParsedGuest = Omit<Guest, "id" | "position">;
@@ -54,7 +55,7 @@ export function RsvpPasteModal({ open, onClose, onParsed }: Props) {
       setText("");
       setError(null);
     } catch {
-      setError("Network error. Check your connection and try again.");
+      setError("Couldn't reach the server. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -69,7 +70,8 @@ export function RsvpPasteModal({ open, onClose, onParsed }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) handleClose(); }}>
-      <DialogContent className="max-w-2xl rounded-none border-border bg-surface p-0">
+      <DialogContent className="relative max-w-2xl rounded-none border-border bg-surface p-0">
+        <TabProgressBar loading={loading} />
         <DialogHeader className="border-b border-border px-6 py-5">
           <DialogTitle className="font-serif text-xl text-ink">
             Paste RSVPs

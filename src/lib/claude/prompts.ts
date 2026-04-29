@@ -39,6 +39,22 @@ Rules:
 - If notes are thin, write a shorter bio rather than inventing details
 - Output ONLY the JSON object.`;
 
+export const nudgesPrompt = `You are drafting RSVP nudges for unconfirmed guests of a private {eventType}.
+
+Input: event context + array of guests (name, company, status, notes).
+
+Output: a JSON array, one object per guest, each with:
+- guestId (preserve from input)
+- variants: { warm, neutral, urgent }
+
+Rules per variant:
+- 2-4 sentences
+- Use contractions
+- No em dashes, no buzzwords
+- Reference event by date and location
+- Sign off with host's first name only
+- Output ONLY the JSON array.`;
+
 export const parseRsvpsPrompt = `You are parsing freeform RSVP data into a clean guest list.
 
 Input: a blob of text from email replies, a spreadsheet, or notes.

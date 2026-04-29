@@ -9,6 +9,7 @@ import { storage } from "@/lib/storage/local";
 import { EmptyState } from "@/components/shared/empty-state";
 import { Button } from "@/components/ui/button";
 import { HeadcountBar } from "@/components/events/headcount-bar";
+import { PageTitle } from "@/components/shared/page-title";
 
 const byDateAsc = (a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime();
 
@@ -71,6 +72,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
+      <PageTitle title="Dashboard — Event Console" />
       {events.length === 0 ? (
         <EmptyState
           title="No events yet."

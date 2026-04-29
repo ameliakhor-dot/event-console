@@ -38,7 +38,13 @@ export function Topbar() {
         </p>
         <h1 className="font-serif text-xl text-ink">{getTitle(pathname)}</h1>
       </div>
-      <p className="text-sm text-graphite">{today}</p>
+      <div className="flex items-center gap-4">
+        <p className="hidden text-xs text-graphite lg:block">
+          <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd>
+          {" "}search
+        </p>
+        <p className="text-sm text-graphite">{today}</p>
+      </div>
     </header>
   );
 }

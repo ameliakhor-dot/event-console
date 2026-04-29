@@ -21,12 +21,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { BriefingCardView } from "@/components/briefing/briefing-card-view";
+import { TabProgressBar } from "@/components/shared/tab-progress-bar";
+import { PageTitle } from "@/components/shared/page-title";
 
 export default function BriefingPage() {
   const params = useParams<{ id: string }>();
   const [event, setEvent] = useState<Event | null>(null);
   const [generating, setGenerating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [showRegenConfirm, setShowRegenConfirm] = useState(false);
   // Session-only — resets on reload
   const [skipRegenConfirm, setSkipRegenConfirm] = useState(false);
@@ -43,7 +44,6 @@ export default function BriefingPage() {
     if (confirmed.length === 0) return;
 
     setGenerating(true);
-    setError(null);
 
     try {
       const res = await fetch("/api/claude/briefing-card", {
@@ -75,13 +75,8 @@ export default function BriefingPage() {
         error?: string;
       };
 
-      if (!res.ok || data.error) {
-        setError(data.error ?? "Generation failed. Please try again.");
-        return;
-      }
-
-      if (!data.briefingCard) {
-        setError("Unexpected response. Please try again.");
+      if (!res.ok || data.error || !data.briefingCard) {
+        toast.error("Couldn't generate the briefing card. Try again.");
         return;
       }
 
@@ -93,7 +88,7 @@ export default function BriefingPage() {
         toast.success("Briefing card generated.");
       }
     } catch {
-      setError("Network error. Check your connection and try again.");
+      toast.error("Couldn't generate the briefing card. Check your connection and try again.");
     } finally {
       setGenerating(false);
     }
@@ -125,7 +120,10 @@ export default function BriefingPage() {
   const canGenerate = confirmedCount > 0;
 
   return (
-    <>
+    <div className="relative">
+      <PageTitle title={`${event.name} · Briefing — Event Console`} />
+      <TabProgressBar loading={generating} />
+
       {/* Action bar — hidden during print */}
       <div
         data-no-print
@@ -191,21 +189,7 @@ export default function BriefingPage() {
           )}
         </div>
 
-        {error && <p className="text-sm text-[#B33A2E]">{error}</p>}
       </div>
-
-      {/* Loading state — hidden during print */}
-      {generating && !hasCard && (
-        <div
-          data-no-print
-          className="border border-border bg-surface px-8 py-16 text-center"
-        >
-          <Loader2 className="mx-auto size-6 animate-spin text-graphite" />
-          <p className="mt-3 font-sans text-sm text-graphite">
-            Generating briefing card...
-          </p>
-        </div>
-      )}
 
       {/* Empty state — hidden during print */}
       {!hasCard && !generating && (
@@ -233,7 +217,6 @@ export default function BriefingPage() {
         />
       )}
 
-      {/* Regenerate confirm dialog */}
       <Dialog open={showRegenConfirm} onOpenChange={setShowRegenConfirm}>
         <DialogContent className="max-w-sm rounded-none border-border bg-surface p-0">
           <DialogHeader className="border-b border-border px-6 py-5">
@@ -272,6 +255,6 @@ export default function BriefingPage() {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

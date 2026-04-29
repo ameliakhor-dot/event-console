@@ -21,6 +21,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { SeatingLayout } from "@/components/seating/seating-layout";
+import { TabProgressBar } from "@/components/shared/tab-progress-bar";
+import { PageTitle } from "@/components/shared/page-title";
 
 type LayoutType = "long_table" | "rounds";
 
@@ -44,7 +46,6 @@ export default function SeatingPage() {
   const [layoutType, setLayoutType] = useState<LayoutType>("long_table");
   const [activeTab, setActiveTab] = useState(0);
   const [generating, setGenerating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   // Per-option modified flags — resets on regenerate or lock
   const [modifiedOptions, setModifiedOptions] = useState(new Set<number>());
   // Regen confirm
@@ -82,7 +83,6 @@ export default function SeatingPage() {
   const generate = useCallback(async () => {
     if (!event || !canGenerate) return;
     setGenerating(true);
-    setError(null);
 
     try {
       const existingPins = chart?.pinnedSeats ?? {};
@@ -107,13 +107,8 @@ export default function SeatingPage() {
         error?: string;
       };
 
-      if (!res.ok || data.error) {
-        setError(data.error ?? "Generation failed. Please try again.");
-        return;
-      }
-
-      if (!data.seatingChart) {
-        setError("Unexpected response. Please try again.");
+      if (!res.ok || data.error || !data.seatingChart) {
+        toast.error("Couldn't generate the seating chart. Try again.");
         return;
       }
 
@@ -134,7 +129,7 @@ export default function SeatingPage() {
         toast.success("Seating chart generated.");
       }
     } catch {
-      setError("Network error. Check your connection and try again.");
+      toast.error("Couldn't reach the server. Check your connection and try again.");
     } finally {
       setGenerating(false);
     }
@@ -246,7 +241,10 @@ export default function SeatingPage() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <>
+    <div className="relative">
+      <PageTitle title={`${event.name} · Seating — Event Console`} />
+      <TabProgressBar loading={generating} />
+
       {/* ── Action bar ── */}
       <div className="flex flex-wrap items-center gap-3 border border-border bg-surface px-6 py-4">
         {/* Layout type toggle */}
@@ -324,18 +322,7 @@ export default function SeatingPage() {
           )}
         </div>
 
-        {error && <p className="text-sm text-[#B33A2E]">{error}</p>}
       </div>
-
-      {/* ── Generating state ── */}
-      {generating && !chart && (
-        <div className="border border-border bg-surface px-8 py-16 text-center">
-          <Loader2 className="mx-auto size-6 animate-spin text-graphite" />
-          <p className="mt-3 text-sm text-graphite">
-            Generating seating chart...
-          </p>
-        </div>
-      )}
 
       {/* ── Empty state ── */}
       {!chart && !generating && (
@@ -352,7 +339,7 @@ export default function SeatingPage() {
       )}
 
       {/* ── Chart view ── */}
-      {chart && !generating && (
+      {chart && (
         <div className="space-y-0 border border-border bg-surface">
           {/* Option tabs */}
           <div className="flex border-b border-border">
@@ -522,6 +509,6 @@ export default function SeatingPage() {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

@@ -148,6 +148,17 @@
   }
 }
 
+@keyframes tab-progress {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-tab-progress {
+  animation: tab-progress 1.4s ease-in-out infinite;
+  width: 50%;
+}
+
 @media print {
   /* Hide app chrome */
   aside,
@@ -182,5 +193,10 @@
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.25rem !important;
+  }
+
+  /* Run of show: full-width clean table */
+  .run-of-show-content {
+    display: block !important;
   }
 }

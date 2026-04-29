@@ -58,6 +58,7 @@ export interface NudgeVariants {
 export interface Nudge {
   guestId: string;
   variants: NudgeVariants;
+  editedVariants?: Partial<NudgeVariants>;
   sentAt?: string;
   generatedAt: string;
 }

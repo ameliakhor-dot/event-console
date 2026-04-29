@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { EventForm } from "@/components/events/event-form";
 import { storage } from "@/lib/storage/local";
+import { PageTitle } from "@/components/shared/page-title";
 import type { Event } from "@/types";
 
 export default function NewEventPage() {
@@ -16,6 +17,7 @@ export default function NewEventPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6">
+      <PageTitle title="New Event — Event Console" />
       <div>
         <p className="text-xs font-semibold tracking-[0.14em] text-graphite uppercase">Create event</p>
         <h2 className="font-serif text-3xl text-ink">New event</h2>

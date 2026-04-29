@@ -6,7 +6,11 @@
       "Bash(node -e \"const p = require\\('./node_modules/@dnd-kit/sortable/package.json'\\); console.log\\('sortable:', p.version\\)\")",
       "Bash(node -e \"const p = require\\('./node_modules/@dnd-kit/utilities/package.json'\\); console.log\\('utilities:', p.version\\)\")",
       "Bash(node -e \"const {CSS} = require\\('@dnd-kit/utilities'\\); console.log\\(Object.keys\\(CSS\\)\\)\")",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "Bash(ls ~/Projects/event-console/*.md)",
+      "Bash(ls ~/Projects/event-console/docs/*.md)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/cmdk/package.json'\\).version\\)\")"
     ]
   }
 }

@@ -7,6 +7,7 @@ import type { Event } from "@/types";
 import { storage } from "@/lib/storage/local";
 import { EventCard } from "@/components/events/event-card";
 import { Input } from "@/components/ui/input";
+import { PageTitle } from "@/components/shared/page-title";
 
 type ActiveTab = "all" | "upcoming" | "past";
 
@@ -52,6 +53,7 @@ export default function EventsPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6">
+      <PageTitle title="Events — Event Console" />
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="text-xs font-semibold tracking-[0.14em] text-graphite uppercase">Events</p>
@@ -102,8 +104,8 @@ export default function EventsPage() {
 
       {visibleEvents.length === 0 ? (
         <div className="border border-border bg-surface px-8 py-14 text-center">
-          <h3 className="font-serif text-2xl text-ink">No events found.</h3>
-          <p className="mt-2 text-sm text-graphite">Try changing search or filters.</p>
+          <h3 className="font-serif text-2xl text-ink">No events match that filter.</h3>
+          <p className="mt-2 text-sm text-graphite">Try adjusting your search or changing the tab.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
