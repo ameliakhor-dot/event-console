@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Build scaffolding, not part of the app
+event-console-*.md
+from-scratch-*.md
