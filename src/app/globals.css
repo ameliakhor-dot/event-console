@@ -7,9 +7,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-heading);
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-navy: var(--navy);
+  --color-navy-hover: var(--navy-hover);
+  --color-fire: var(--fire);
+  --color-confirmed: var(--status-confirmed);
+  --color-pending: var(--status-pending);
+  --color-declined: var(--status-declined);
+  --color-tentative: var(--status-tentative);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,6 +60,17 @@
 }
 
 :root {
+  --paper: #fafaf7;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --graphite: #6b6b6b;
+  --navy: #1f3a5f;
+  --navy-hover: #162b47;
+  --fire: #b33a2e;
+  --status-confirmed: #2d7a3e;
+  --status-pending: #b8860b;
+  --status-declined: #888888;
+  --status-tentative: #3b5998;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.147 0.004 49.3);
   --popover: oklch(1 0 0);
@@ -62,8 +84,8 @@
   --accent: oklch(0.96 0.002 17.2);
   --accent-foreground: oklch(0.214 0.009 43.1);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0.005 34.3);
-  --input: oklch(0.922 0.005 34.3);
+  --border: #e8e5dd;
+  --input: #e8e5dd;
   --ring: oklch(0.714 0.014 41.2);
   --chart-1: oklch(0.868 0.007 39.5);
   --chart-2: oklch(0.547 0.021 43.1);
@@ -79,8 +101,8 @@
   --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
   --sidebar-border: oklch(0.922 0.005 34.3);
   --sidebar-ring: oklch(0.714 0.014 41.2);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.147 0.004 49.3);
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 .dark {
@@ -122,9 +144,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
+    @apply bg-background font-sans text-foreground;
   }
 }
