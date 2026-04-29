@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(node -e \"const p = require\\('./node_modules/@dnd-kit/core/package.json'\\); console.log\\('core:', p.version\\)\")",
+      "Bash(node -e \"const p = require\\('./node_modules/@dnd-kit/sortable/package.json'\\); console.log\\('sortable:', p.version\\)\")",
+      "Bash(node -e \"const p = require\\('./node_modules/@dnd-kit/utilities/package.json'\\); console.log\\('utilities:', p.version\\)\")",
+      "Bash(node -e \"const {CSS} = require\\('@dnd-kit/utilities'\\); console.log\\(Object.keys\\(CSS\\)\\)\")",
+      "Bash(node -e ':*)"
+    ]
+  }
+}

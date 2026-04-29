@@ -31,15 +31,21 @@ export interface BriefingCard {
 
 export interface SeatingOption {
   layoutType: "long_table" | "rounds";
-  seats: string[];
+  /** flat string[] for long_table; string[][] (one per round table) for rounds */
+  seats: string[] | string[][];
   rationale: string;
   keyPairings: { pair: [string, string]; reasoning: string }[];
 }
 
+/** long_table: flat seat index; rounds: { roundIndex, seatIndex } */
+export type PinnedSeatPosition = number | { roundIndex: number; seatIndex: number };
+
 export interface SeatingChart {
   options: SeatingOption[];
   activeOptionIndex: number | null;
-  pinnedSeats: Record<string, number>;
+  /** chart-level layout type — all options share this; drives pin interpretation */
+  layoutType: "long_table" | "rounds";
+  pinnedSeats: Record<string, PinnedSeatPosition>;
   generatedAt: string;
 }
 
