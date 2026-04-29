@@ -2,7 +2,7 @@
 
 A multi-event ops tool for community managers running founder dinners and receptions. Built as a take-home project demonstrating AI-assisted event ops.
 
-**Live:** https://your-vercel-url.vercel.app
+**Live:** [https://your-vercel-url.vercel.app](https://event-console.vercel.app/)
 
 ## What it does
 
