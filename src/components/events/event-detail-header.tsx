@@ -64,7 +64,7 @@ export function EventDetailHeader({ eventId }: Props) {
   }
 
   return (
-    <>
+    <div data-no-print>
       <header className="border border-border bg-surface p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -98,6 +98,6 @@ export function EventDetailHeader({ eventId }: Props) {
       </header>
 
       <EventTabs eventId={eventId} />
-    </>
+    </div>
   );
 }

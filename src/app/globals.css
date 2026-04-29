@@ -147,3 +147,40 @@
     @apply bg-background font-sans text-foreground;
   }
 }
+
+@media print {
+  /* Hide app chrome */
+  aside,
+  header,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  /* Reset layout so card fills the page */
+  body {
+    background: white !important;
+  }
+
+  main {
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Remove the outer max-width wrapper constraints */
+  .mx-auto {
+    max-width: none !important;
+  }
+
+  /* Guest cards never break across pages */
+  .briefing-guest-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Always two-column in print, regardless of viewport */
+  .briefing-guest-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+}
