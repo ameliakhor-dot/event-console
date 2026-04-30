@@ -6,6 +6,8 @@ import { Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -70,24 +72,27 @@ export function RsvpPasteModal({ open, onClose, onParsed }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) handleClose(); }}>
-      <DialogContent className="relative max-w-2xl rounded-none border-border bg-surface p-0">
+      <DialogContent className="relative flex max-h-[85vh] max-w-2xl flex-col gap-0 rounded-none border-border bg-surface p-0">
         <TabProgressBar loading={loading} />
-        <DialogHeader className="border-b border-border px-6 py-5">
+
+        {/* Header — shrink-0 so it never compresses */}
+        <DialogHeader className="shrink-0 border-b border-border px-6 pb-4 pt-6">
           <DialogTitle className="font-serif text-xl text-ink">
             Paste RSVPs
           </DialogTitle>
-          <p className="mt-1 text-sm text-graphite">
+          <DialogDescription className="text-graphite">
             Any format works — email replies, a list of names, a spreadsheet
             paste. Claude will sort it out.
-          </p>
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 py-5 space-y-4">
+        {/* Body — flex-1 + min-h-0 required for overflow-y-auto to actually work */}
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-4 space-y-3">
           <Textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={`Sarah Chen — confirmed, vegetarian\nMike Torres (Acme) — tentative\njohn@example.com — declined`}
-            className="min-h-48 resize-y font-mono text-sm rounded-none border-border bg-paper"
+            className="field-sizing-fixed max-h-[400px] min-h-[200px] resize-none rounded-none border-border bg-paper font-mono text-sm"
             disabled={loading}
           />
 
@@ -96,7 +101,8 @@ export function RsvpPasteModal({ open, onClose, onParsed }: Props) {
           )}
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
+        {/* Footer — shrink-0 so it stays pinned at bottom */}
+        <DialogFooter className="shrink-0 border-t border-border px-6 py-4">
           <Button
             variant="outline"
             onClick={handleClose}
@@ -117,7 +123,7 @@ export function RsvpPasteModal({ open, onClose, onParsed }: Props) {
               "Parse RSVPs"
             )}
           </Button>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
